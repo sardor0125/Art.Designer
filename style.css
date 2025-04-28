@@ -1,0 +1,774 @@
+/* =================================== */
+/* General Styles         */
+/* =================================== */
+
+/* Add Playfair Display and Poppins fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --playfair: 'Playfair Display', serif;
+    --poppins: 'Poppins', sans-serif;
+    --primary-blue: #28a6f3;
+    --dark-grey: rgb(42, 46, 49); /* Asosiy matnlar uchun */
+    --medium-grey: #555; /* Ikkinchi darajali matnlar uchun */
+    --light-grey: #f5f5f5; /* Fon uchun */
+    --white: #fff;
+    --black: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    word-wrap: break-word;
+    overflow-x: hidden; /* Gorizontal scrollni o'chirish */
+    padding-top: 70px; /* Fixed nav balandligiga mos padding */
+    background-color: var(--light-grey);
+    font-family: var(--poppins);
+    line-height: 1.6;
+    color: var(--dark-grey); /* Asosiy matn rangini variabledan olish */
+    min-height: 100vh; /* Footer pastda turishi uchun */
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased; /* Matnni silliqroq qilish */
+    -moz-osx-font-smoothing: grayscale; /* Matnni silliqroq qilish (Firefox) */
+}
+
+main {
+    flex-grow: 1; /* Main content qolgan bo'sh joyni egallaydi */
+}
+
+
+/* =================================== */
+/* Header & Navbar         */
+/* =================================== */
+
+.header1 {
+    height: 100vh;
+    width: 100vw; /* vw ishlatish to'g'ri */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./banner-bg.jpg') center/cover no-repeat; /* Fon sozlamalari qisqartirildi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: var(--white);
+    padding-top: 70px; /* Navbar balandligiga mos bo'sh joy */
+    position: relative; /* Ichidagi elementlarni joylashtirish uchun */
+}
+
+.navbar {
+    min-height: 70px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Shaffofroq qora fon */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left a {
+    font-size: 1.8rem;
+    font-family: var(--playfair);
+    color: var(--white);
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.nav-left a:hover {
+    color: var(--primary-blue);
+}
+
+/* Navigation Links (Desktop View) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease; /* Animation for mobile toggle (will be adjusted in media query) */
+}
+
+.nav-right li a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    padding: 5px 10px;
+    font-family: var(--poppins);
+    font-weight: 400;
+    transition: color 0.3s ease;
+    position: relative; /* Hover ostki chiziq uchun */
+}
+
+/* Nav link hover ostki chiziq effekti */
+.nav-right li a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; /* Linkdan pastroq */
+    left: 0;
+    width: 0; /* Boshida ko'rinmaydi */
+    height: 2px;
+    background-color: var(--primary-blue);
+    transition: width 0.3s ease; /* Kengayish animatsiyasi */
+}
+
+.nav-right li a:hover {
+    color: var(--primary-blue);
+}
+
+.nav-right li a:hover::after {
+    width: 100%; /* Hoverda to'liq kengayadi */
+}
+
+
+/* Hamburger Menu Toggle Button */
+.nav-toggle {
+    display: none; /* Default: hidden on desktop */
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-toggle:hover {
+    color: var(--primary-blue);
+}
+
+/* Hero Section kontenti konteyneri */
+.hero-section {
+    width: 100%;
+    /* height: auto; - header1 ichida flex-grow 1 bo'lgani uchun auto kerak emas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    flex-grow: 1;
+    position: relative; /* Z-index uchun */
+    z-index: 2; /* Kontent fon ustida bo'lishi uchun */
+}
+
+/* Hero Section ichidagi kontent */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 4em;
+    color: var(--white);
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: var(--playfair);
+    /* Animation */
+    opacity: 0; /* Boshida yashirilgan */
+    animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+.hero-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    width: 100%;
+    line-height: 1.5;
+    /* Animation */
+    opacity: 0; /* Boshida yashirilgan */
+    animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.3s both;
+}
+
+#search1 {
+    width: 90%;
+    max-width: 500px;
+    height: 55px;
+    border-radius: 3em;
+    padding: 0 1.5em;
+    border: 1px solid transparent; /* Fokuslanganda border ko'rinishi uchun */
+    font-size: 1rem;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Yengilroq soya */
+    outline: none;
+    transition: all 0.3s ease; /* O'tish effekti */
+    /* Animation */
+    opacity: 0; /* Boshida yashirilgan */
+    animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.6s both;
+    font-family: var(--poppins);
+    color: var(--dark-grey); /* Inputdagi yozuv rangi */
+}
+
+#search1::placeholder {
+    color: var(--medium-grey); /* Placeholder rangi */
+    opacity: 0.8;
+    font-family: var(--poppins);
+}
+
+#search1:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-blue); /* Fokuslanganda chegara rangi */
+}
+
+
+/* =================================== */
+/* Section Titles           */
+/* =================================== */
+
+.section-title {
+    width: 100%; /* vw o'rniga % ishlatsa qulayroq */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px 20px 30px 20px;
+    text-align: center;
+    background-color: var(--light-grey);
+}
+
+
+.section-title h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-family: var(--playfair);
+    font-weight: 700;
+    color: var(--dark-grey);
+}
+
+.section-title h5 {
+    font-size: 1.1rem;
+    color: var(--medium-grey);
+    font-weight: normal;
+    margin-top: 0;
+    font-family: var(--poppins);
+    text-transform: uppercase; /* Kichik sarlavhani katta harflarda yozish */
+    letter-spacing: 1px; /* Harflar orasidagi bo'sh joy */
+}
+
+
+/* =================================== */
+/* Card Grid Section       */
+/* =================================== */
+
+.card-section {
+    width: 100%;
+    /* height: auto; kerak emas */
+    display: flex;
+    justify-content: center;
+    padding: 0px 20px 60px 20px;
+    background-color: var(--light-grey);
+}
+
+/* Cards Container (Grid) */
+.cards-container {
+    max-width: 1200px;
+    width: 100%;
+    /* height: auto; kerak emas */
+    display: grid;
+    /* Responsive grid columnlar media queryda beriladi */
+    gap: 20px;
+    padding: 0;
+}
+
+
+/* Each Card */
+.box-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Yengilroq soya */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Kartochka ustiga kelganda qo'l kursori */
+    /* Animation */
+    /* opacity: 0; /* Boshida yashirilgan (agar animatsiya kerak bo'lsa) */
+    /* animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
+}
+
+.box-card:hover {
+    transform: translateY(-5px); /* Mavjud */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Hoverda soya yanada yaqqolroq */
+}
+
+/* Image Container (inside card) */
+.box-img {
+    position: relative;
+    overflow: hidden;
+    height: 200px; /* Rasmlar uchun bir xil balandlik (ixtiyoriy, lekin tartibli ko'rinadi) */
+}
+
+.box-img img {
+    display: block;
+    width: 100%;
+    height: 100%; /* Kontent balandligiga moslashadi */
+    object-fit: cover; /* Rasm konteynerni to'liq to'ldiradi, qirqilishi mumkin */
+    transition: transform 0.5s ease;
+}
+
+.box-card:hover .box-img img {
+    transform: scale(1.1); /* Zoom effekti biroz kattaroq */
+}
+
+/* Title over the image */
+.box-img h3 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: var(--white);
+    background-color: rgba(0, 0, 0, 0.7); /* Fon biroz to'qroq */
+    padding: 5px 10px;
+    font-size: 1em;
+    z-index: 2;
+    border-radius: 3px;
+    font-family: var(--poppins);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Card text content container */
+.box-card-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    text-align: center;
+    justify-content: center; /* Matnni markazga joylash */
+}
+
+/* Agar card content ichida sarlavha bo'lsa */
+.box-card-content h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-family: var(--playfair);
+    font-weight: 700;
+    color: var(--dark-grey);
+    text-transform: none; /* Image ustidagi sarlavhadan farqli */
+}
+
+.box-card-content p {
+    font-size: 0.9em;
+    color: var(--medium-grey);
+    line-height: 1.4;
+    font-family: var(--poppins);
+}
+
+
+/* =================================== */
+/* About Section           */
+/* =================================== */
+
+.about-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--white); /* Fon rangini o'zgartirish (ixtiyoriy) */
+}
+
+.about-content {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-content h2 {
+    font-size: 2em;
+    font-family: var(--playfair);
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--dark-grey);
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--medium-grey);
+    margin-bottom: 15px; /* Paragraphlar orasidagi bo'sh joyni oshirish */
+    font-family: var(--poppins);
+}
+
+
+/* =================================== */
+/* Footer                 */
+/* =================================== */
+
+footer {
+    width: 100%;
+    background-color: var(--dark-grey);
+    color: var(--white);
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: auto;
+    font-family: var(--poppins);
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Tepadan soya berish */
+}
+
+.footer-brand h1 {
+    font-size: 1.5em; /* Brend nomi sal kattaroq */
+    font-weight: 600;
+    font-family: var(--playfair); /* Playfair fontini ishlatish (ixtiyoriy) */
+    margin-bottom: 20px;
+    color: var(--primary-blue); /* Brend rangini ishlatish */
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px; /* Ikonkalar orasidagi bo'sh joyni oshirish */
+    margin-bottom: 20px;
+}
+
+.footer-social a {
+    color: inherit; /* Use parent color */
+    display: inline-block; /* Animatsiya uchun blokga aylantirish */
+}
+
+.footer-social i {
+    font-size: 2.5em;
+    /* margin: 0 0.3em; - Gap ishlatilgani uchun bu kerak emas */
+    transition: color 0.5s ease, transform 0.5s ease;
+    color: rgba(255, 255, 255, 0.8); /* Default icon color */
+}
+
+/* Ikonka hover stillari */
+#instagram:hover { color: #E1306C; }
+#facebook:hover { color: #1877F2; }
+#email:hover { color: #EA4335; }
+#youtube:hover { color: #FF0000; }
+#telegram:hover { color: #0088CC; }
+
+.footer-social a:hover i { /* Hover effekti a emas i elementiga qo'llaniladi */
+    transform: scale(1.1); /* Yengil kattalashish */
+    /* pulse animatsiyasi o'rniga scale ishlatish ham mumkin */
+}
+
+/* Agar pulse animatsiyasini ishlatmoqchi bo'lsangiz */
+/*
+.footer-social a:hover i {
+     animation: pulse 1s ease-in-out infinite both;
+}
+*/
+
+
+/* =================================== */
+/* Animations              */
+/* =================================== */
+
+/* Fade-in animation */
+@-webkit-keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Slide-in-bottom animation */
+@-webkit-keyframes slide-in-bottom {
+    0% {
+        -webkit-transform: translateY(50px); /* Ko'proq pastdan */
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-bottom {
+    0% {
+        -webkit-transform: translateY(50px); /* Ko'proq pastdan */
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Pulse animation (ikonkalar uchun, agar scale ishlatilmasa) */
+@-webkit-keyframes pulse {
+    0%, 100% { -webkit-transform: scale(1); transform: scale(1); }
+    50% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+}
+@keyframes pulse {
+    0%, 100% { -webkit-transform: scale(1); transform: scale(1); }
+    50% { -webkit-transform: scale(1.1); transform: scale(1.1); }
+}
+
+/* Scroll paytida animatsiyalarni ishga tushirish uchun JS kerak.
+   CSSda faqat animatsiya qoidalari yoziladi.
+   Agar cardlarga slide-in-bottom qo'shmoqchi bo'lsangiz,
+   ularning default holatida opacity: 0 berib,
+   scroll paytida ko'rinadigan bo'lganda ularga "animate" kabi class qo'shish uchun JS ishlating.
+*/
+
+
+/* =================================== */
+/* Media Queries            */
+/* =================================== */
+
+/* Katta ekranlar uchun 3 grid column */
+@media (min-width: 992px) {
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 column */
+    }
+}
+
+/* planshetlar va kichik noutbuklar (masalan, 768px dan 991px gacha) uchun 2 grid column */
+@media (min-width: 768px) and (max-width: 991px) {
+    body { padding-top: 70px; }
+    .navbar { padding: 10px 15px; }
+    .nav-left a { font-size: 1.6rem; }
+
+    /* Nav links */
+    .nav-right { gap: 15px; }
+    .nav-right li a { font-size: 0.95rem; padding: 5px 8px; }
+    .nav-right li a::after { bottom: -2px; height: 1.5px; }
+
+
+    /* Header content */
+    .hero-content { max-width: 700px; padding: 0 15px; }
+    .hero-content h1 { font-size: 3em; margin-bottom: 15px; }
+    .hero-content p { font-size: 1rem; margin-bottom: 25px; }
+    #search1 { width: 80%; max-width: 400px; height: 50px; font-size: 1rem; }
+
+
+    /* Section titles */
+    .section-title { padding: 40px 15px 20px 15px; }
+    .section-title h1 { font-size: 2.2em; }
+    .section-title h5 { font-size: 1rem; }
+
+
+    /* Card Grid */
+    .card-section { padding: 20px 15px 40px 15px; }
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 column */
+        gap: 15px;
+    }
+    .box-card { border-radius: 6px; }
+    .box-img { height: 180px; }
+    .box-img h3 { font-size: 0.9em; padding: 4px 8px; bottom: 8px; left: 8px; }
+    .box-card-content { padding: 12px; }
+    .box-card-content p { font-size: 0.85em; }
+
+
+    /* About Section */
+    .about-section { padding: 40px 15px; }
+    .about-content { max-width: 700px; }
+    .about-content h2 { font-size: 1.8em; margin-bottom: 12px; }
+    .about-content p { font-size: 1rem; margin-bottom: 10px; }
+
+
+    /* Footer */
+    footer { padding: 30px 15px; }
+    .footer-brand h1 { font-size: 1.3em; margin-bottom: 15px; }
+    .footer-social { margin-bottom: 15px; gap: 10px; }
+    .footer-social i { font-size: 2.2em; }
+}
+
+/* Telefonlar (masalan, 767px gacha) uchun 1 grid column va mobil navigatsiya */
+@media (max-width: 767px) {
+    body { padding-top: 60px; } /* Navbar balandligiga mos */
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between; /* Logo chapda, toggle o'ngda */
+        padding: 8px 10px;
+        min-height: 60px; /* Mobil navbar balandligi */
+        align-items: center;
+    }
+    .nav-left a { font-size: 1.5rem; }
+
+
+    /* Hamburger icon - faqat mobilda ko'rinadi */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Nav links - mobilda yashiriladi va vertikal joylashadi */
+    .nav-right {
+        display: flex; /* Flex kerak, chunki max-height bilan boshqaramiz */
+        flex-direction: column; /* Links vertical */
+        position: absolute;
+        top: 60px; /* Position below the fixed navbar */
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9); /* To'qroq fon */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 0; /* Paddingni alohida linklarga beramiz */
+        text-align: center;
+        z-index: 9; /* Below the navbar */
+
+        /* Animatsiya uchun boshlang'ich holat */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        opacity: 0;
+    }
+
+    /* Nav link hover ostki chiziq mobilda o'chiriladi */
+    .nav-right li a::after {
+        display: none;
+    }
+
+    /* Styles for mobile navigation items */
+    .nav-right li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Har bir link ostidan chegara */
+    }
+     .nav-right li:last-child {
+         border-bottom: none; /* Oxirgi link ostidan chegarani olib tashlash */
+     }
+
+    .nav-right li a {
+        padding: 12px 0; /* Full width clickable area va vertikal padding */
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.05rem;
+        font-weight: 500; /* Font og'irligi */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .nav-right li a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Hoverda yengil fon */
+        color: var(--primary-blue);
+    }
+
+    /* Class added by JS when toggle is clicked */
+    .nav-right.active {
+        max-height: 300px; /* Menyuning maksimal balandligi (kontentga qarab sozlang) */
+        opacity: 1;
+    }
+
+
+    /* Header content */
+    .hero-content { max-width: 95%; padding: 0 10px; }
+    .hero-content h1 { font-size: 2.5em; margin-bottom: 15px; }
+    .hero-content p { font-size: 0.9rem; margin-bottom: 20px; }
+    #search1 { width: 90%; max-width: 300px; height: 45px; font-size: 0.95rem; padding: 0 1.2em; }
+
+
+    /* Section titles */
+    .section-title { padding: 30px 10px 15px 10px; }
+    .section-title h1 { font-size: 2em; }
+    .section-title h5 { font-size: 0.9rem; }
+
+
+    /* Card Grid */
+    .card-section { padding: 15px 10px 30px 10px; }
+    .cards-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 column */
+        gap: 15px;
+    }
+    .box-card { border-radius: 5px; }
+    .box-img { height: 180px; }
+    .box-img h3 { font-size: 0.85em; padding: 3px 8px; bottom: 8px; left: 8px; }
+    .box-card-content { padding: 12px; }
+    .box-card-content p { font-size: 0.85em; }
+
+
+    /* About Section */
+    .about-section { padding: 30px 10px; }
+    .about-content { max-width: 95%; }
+    .about-content h2 { font-size: 1.8em; margin-bottom: 10px; }
+    .about-content p { font-size: 1rem; margin-bottom: 8px; }
+
+
+    /* Footer */
+    footer { padding: 20px 10px; }
+    .footer-brand h1 { font-size: 1.2em; margin-bottom: 15px; }
+    .footer-social { margin-bottom: 15px; gap: 10px; }
+    .footer-social i { font-size: 2em; }
+}
+
+/* Juda kichik telefonlar (masalan, 480px gacha) uchun qo'shimcha sozlashlar */
+@media (max-width: 480px) {
+    body { padding-top: 50px; }
+    .navbar { min-height: 50px; padding: 6px 8px; }
+    .nav-left a { font-size: 1.3rem; }
+    .nav-toggle { font-size: 1.6rem; }
+    .nav-right { top: 50px; } /* Navbar balandligiga moslash */
+    .nav-right li a { padding: 10px 0; font-size: 1rem; }
+
+
+    .hero-content h1 { font-size: 2em; margin-bottom: 10px; }
+    .hero-content p { font-size: 0.85rem; margin-bottom: 15px; }
+    #search1 { height: 40px; font-size: 0.85rem; padding: 0 1em; }
+
+
+    .section-title { padding: 25px 8px 12px 8px; }
+    .section-title h1 { font-size: 1.8em; }
+    .section-title h5 { font-size: 0.8rem; }
+
+
+    .card-section { padding: 12px 8px 25px 8px; }
+    .cards-container { gap: 10px; }
+     .box-img { height: 160px; }
+    .box-img h3 { font-size: 0.8em; padding: 2px 5px; bottom: 6px; left: 6px; }
+    .box-card-content { padding: 10px; }
+    .box-card-content p { font-size: 0.8em; }
+
+
+    .about-section { padding: 25px 8px; }
+    .about-content h2 { font-size: 1.6em; margin-bottom: 8px; }
+    .about-content p { font-size: 0.9rem; margin-bottom: 6px; }
+
+
+    footer { padding: 15px 8px; }
+    .footer-brand h1 { font-size: 1em; margin-bottom: 10px; }
+    .footer-social { margin-bottom: 10px; gap: 8px; }
+    .footer-social i { font-size: 1.8em; }
+}
+/* Image Container (inside card) */
+.box-img {
+    position: relative;
+    overflow: hidden;
+    height: 250px; /* Bu qiymatni oshiring */
+    /* Existing styles */
+}
+
+.box-img img {
+    display: block;
+    width: 100%;
+    height: 100%; /* Kontent balandligiga moslashadi */
+    object-fit: cover; /* Rasm konteynerni to'liq to'ldiradi, qirqilishi mumkin */
+    transition: transform 0.5s ease;
+}
+
+/* Media querylar ichidagi .box-img stilini ham mos ravishda o'zgartiring */
+@media (min-width: 768px) and (max-width: 991px) {
+    .box-img { height: 220px; /* Bu qiymatni ham sozlang */ }
+}
+
+@media (max-width: 767px) {
+    .box-img { height: 200px; /* Bu qiymatni ham sozlang */ }
+}
+
+@media (max-width: 480px) {
+    .box-img { height: 180px; /* Bu qiymatni ham sozlang */ }
+}
